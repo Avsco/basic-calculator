@@ -2,7 +2,6 @@ package com.example.calculator
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -50,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         buttonSubmit.setOnClickListener {
             val valuesPreview = previewTextView.text.split(" ").size == 3
-            if(valuesPreview) getResult(previewTextView, resultTextView)
+            if (valuesPreview) getResult(previewTextView, resultTextView)
         }
 
     }
@@ -62,13 +61,15 @@ class MainActivity : AppCompatActivity() {
                 val valuesPreview = preview.text.split(" ")
                 val sb = StringBuilder()
 
-                when(button.text) {
+                when (button.text) {
                     "+", "-", "x", "/" -> {
-                        if(valuesPreview.size == 3) getResult(preview, result)
-                        preview.text = sb.append(preview.text).append(" ").append(button.text).append(" ").toString()
+                        if (valuesPreview.size == 3) getResult(preview, result)
+                        preview.text =
+                            sb.append(preview.text).append(" ").append(button.text).append(" ")
+                                .toString()
                     }
                     else -> {
-                        if(valuesPreview.size == 1 && valuesPreview[0].compareTo("ans") == 0){
+                        if (valuesPreview.size == 1 && valuesPreview[0].compareTo("ans") == 0) {
                             preview.text = sb.append(button.text).toString()
                             this.resultValue = BigDecimal.ZERO
                         } else {
@@ -87,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         var firstValue: String = valuesPreview[0]
         if (valuesPreview[0].compareTo("ans") == 0) firstValue = this.resultValue.toString()
 
-        when(valuesPreview[1]) {
+        when (valuesPreview[1]) {
             "+" -> {
                 this.resultValue = BigDecimal(firstValue).plus(BigDecimal(valuesPreview[2]))
             }
